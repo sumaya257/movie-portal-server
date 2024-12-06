@@ -84,6 +84,22 @@ async function run() {
       }
     });
 
+    // POST: Add a movie to favorites
+app.post('/favorites', async (req, res) => {
+    const favoriteMovie = req.body;
+  
+    try {
+      const favoritesCollection = client.db('movieDB').collection('favorites');
+      const result = await favoritesCollection.insertOne(favoriteMovie);
+  
+      res.status(201).send({ message: 'Movie added to favorites successfully!', result });
+    } catch (error) {
+      console.error('Error adding movie to favorites:', error);
+      res.status(500).send({ error: 'An error occurred while adding to favorites.' });
+    }
+  });
+  
+
     // Send a ping to confirm a successful connection
     await client.db('admin').command({ ping: 1 });
     console.log('Pinged your deployment. You successfully connected to MongoDB!');
