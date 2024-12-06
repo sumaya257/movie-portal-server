@@ -1,7 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
 const app = express()
 const port = process.env.PORT || 5000
 
@@ -43,6 +44,26 @@ async function run() {
         const result = await movieCollection.insertOne(newMovie)
         res.send(result)
     })
+
+    // Find the specific movie by ID
+app.get('/movie/:id', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      // Convert the id to ObjectId
+      const movie = await movieCollection.findOne({ _id: new ObjectId(id) });
+  
+      if (movie) {
+        res.status(200).send(movie);
+      } else {
+        res.status(404).send({ error: 'Movie not found!' });
+      }
+    } catch (error) {
+      console.error('Error fetching movie:', error);
+      res.status(500).send({ error: 'An error occurred while fetching the movie.' });
+    }
+  });
+  
     
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
