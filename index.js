@@ -87,7 +87,7 @@ async function run() {
 
       const updatedMovie = req.body;
 
-      // Remove `_id` from the update payload
+      // Remove `_id` from the update payload it cant be changed
       delete updatedMovie._id;
 
       try {
@@ -151,6 +151,7 @@ async function run() {
     // GET: Fetch favorite movies by email
     app.get('/favorites', async (req, res) => {
       const { email } = req.query;
+      console.log('Email:', email); // Log the email to check if it's received
 
       if (!email) {
         return res.status(400).send({ error: 'Email is required to fetch favorites.' });
