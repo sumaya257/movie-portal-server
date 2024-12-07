@@ -1,6 +1,7 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express();
@@ -25,7 +26,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect to MongoDB
-    await client.connect();
+    // await client.connect();
 
     // Access the collections
     const movieCollection = client.db('movieDB').collection('movie');
@@ -191,8 +192,8 @@ async function run() {
     // -------------------------------
     // Ping to Test Connection
     // -------------------------------
-    await client.db('admin').command({ ping: 1 });
-    console.log('Connected to MongoDB successfully!');
+    // await client.db('admin').command({ ping: 1 });
+    // console.log('Connected to MongoDB successfully!');
   } finally {
     // Ensure proper cleanup
     // await client.close();
