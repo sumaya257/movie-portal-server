@@ -145,6 +145,8 @@ async function run() {
         res.status(500).send({ error: 'An error occurred while adding to favorites.' });
       }
     });
+    
+
 
     // GET: Fetch favorite movies by email
     app.get('/favorites', async (req, res) => {
